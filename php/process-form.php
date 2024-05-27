@@ -2,7 +2,7 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require 'vendor/autoload.php'; // Make sure to require autoload.php from PHPMailer
+require '../vendor/autoload.php'; // Make sure to require autoload.php from PHPMailer
 
 if (isset($_REQUEST['name'], $_REQUEST['email'])) {
 
@@ -27,7 +27,7 @@ if (isset($_REQUEST['name'], $_REQUEST['email'])) {
         $mail->Port = 587;                                    // TCP port to connect to
 
         //Recipients
-        $mail->setFrom($mail, $name);
+        $mail->setFrom($mail->Username, $name);
         $mail->addAddress($to);                                    // Add a recipient
 
         // Content
