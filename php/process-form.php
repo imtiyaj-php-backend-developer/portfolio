@@ -40,7 +40,7 @@ if (isset($_REQUEST['name'], $_REQUEST['email'])) {
     } catch (Exception $e) {
         echo "error: {$mail->ErrorInfo}";
     }
-    
+
 
 }
 ?>
