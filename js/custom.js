@@ -122,21 +122,28 @@
 		/*  AJAX CONTACT FORM
         /* ----------------------------------------------------------- */
 
-		$("#contactform").on("submit", function() {
-			$("#message").text("Sending...");
+		$(".contactform").on("submit", function(e) {
+			e.preventDefault();
 			var form = $(this);
+			var output_message = form.find(".output_message");
+			
+			output_message.text("Sending...").removeClass("success error");
+			
 			$.ajax({
 				url: form.attr("action"),
 				method: form.attr("method"),
 				data: form.serialize(),
-				success: function(result) {
-					if (result === "success") {
-						$("#contactform").find(".output_message").addClass("success");
-						$("#message").text("Message Sent!");
+				dataType: "json",
+				success: function(response) {
+					if (response.status === "success") {
+						output_message.text(response.message).addClass("success");
+						form[0].reset();
 					} else {
-						$("#contactform").find(".output_message").addClass("error");
-						$("#message").text("Error Sending!");
+						output_message.text(response.message).addClass("error");
 					}
+				},
+				error: function(xhr) {
+					output_message.text("Error sending message. Please try again.").addClass("error");
 				}
 			});
 			return false;

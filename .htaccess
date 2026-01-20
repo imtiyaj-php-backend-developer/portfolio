@@ -1,0 +1,22 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Allow all requests to actual files and directories
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    
+    # Allow POST requests
+    RewriteCond %{REQUEST_METHOD} ^POST$ [NC]
+    RewriteRule ^ - [L]
+</IfModule>
+
+# Enable PHP handling
+<FilesMatch "\.php$">
+    Allow from all
+</FilesMatch>
+
+# Allow all HTTP methods
+<Limit GET POST PUT DELETE>
+    Order allow,deny
+    Allow from all
+</Limit>

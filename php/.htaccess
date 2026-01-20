@@ -1,0 +1,15 @@
+<FilesMatch "\.php$">
+    Allow from all
+</FilesMatch>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_METHOD} ^POST$ [NC]
+    RewriteRule ^(.*)$ - [L]
+</IfModule>
+
+# Allow POST requests
+<Limit POST>
+    Order allow,deny
+    Allow from all
+</Limit>
